@@ -1,26 +1,20 @@
-extends views/main.pug
+extends partial/layout.pug
 
-block head
-  title
-    = page.title + ' - ' + config.title
+block site_title
+    != page.title + ' • ' + config.title
 
-block main
-  if page.type === 'tags'
-    include mixins/tags.pug
-    +tags('TAGS', site.tags.length)
-  else
+block description
+    - var desc = page.desc || page.title + ' - ' + config.author;
+    meta(name='description', content=desc)
+
+block container
     include mixins/post.pug
-    +post(page, 'post')
+    +post(page)
 
-  //-
-  include plugins/reward.pug
+block pagination
+    include mixins/paginator.pug
+    +post()
+    include partial/comment.pug
 
-  //- comment
-  if theme.comment_plugin == 'valine'
-    include plugins/valine.pug
-  else
-    include plugins/livere.pug
-
-  //- mathjax
-  if page.mathjax
-    include plugins/mathjax.pug
+block copyright
+    include partial/copyright.pug
