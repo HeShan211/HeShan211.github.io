@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      java迷宫 | Hexo
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+    css('css/plugins/gitment.css')
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    <script src="/js/qrious.js"></script>
+  
+  
+    <script src="/js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>java迷宫</h2>
+  <p class="post-date">2019-11-24</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="game类（游戏界面）"><a href="#game类（游戏界面）" class="headerlink" title="game类（游戏界面）"></a>game类（游戏界面）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">game</span> <span class="keyword">extends</span> <span class="title">JFrame</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    JMenuBar menuBar;<span class="comment">//菜单栏对象</span></span><br><span class="line">    JMenu menu,menu2;<span class="comment">//菜单对象</span></span><br><span class="line">    JMenuItem menuitem,menuitem2,menuitem3;</span><br><span class="line">    Secretmap g;</span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="title">game</span><span class="params">()</span></span>&#123;</span><br><span class="line">		setTitle(<span class="string">"我的迷宫"</span>);</span><br><span class="line">		setLayout(<span class="keyword">null</span>);</span><br><span class="line">		setBounds(<span class="number">100</span>,<span class="number">100</span>,<span class="number">700</span>,<span class="number">700</span>);</span><br><span class="line">		g= <span class="keyword">new</span> Secretmap();<span class="comment">//里面包含一个游戏类继承画板</span></span><br><span class="line">		g.setBounds(<span class="number">0</span>,<span class="number">0</span>,<span class="number">600</span>,<span class="number">600</span>);</span><br><span class="line">		Container container=getContentPane();</span><br><span class="line">		menuBar=<span class="keyword">new</span> JMenuBar();<span class="comment">//创建菜单栏对象</span></span><br><span class="line">		setJMenuBar(menuBar);<span class="comment">//添加菜单栏对象</span></span><br><span class="line">		menu=<span class="keyword">new</span> JMenu(<span class="string">"开始"</span>);<span class="comment">//创建菜单对象</span></span><br><span class="line">		menuBar.add(menu);<span class="comment">//将菜单对象添加到菜单栏对象中</span></span><br><span class="line">		menuitem=<span class="keyword">new</span> JMenuItem(<span class="string">"开始游戏"</span>);</span><br><span class="line">		menu.add(menuitem);</span><br><span class="line">		menuitem.addActionListener(<span class="keyword">this</span>);<span class="comment">//添加监听事件</span></span><br><span class="line">		menu2=<span class="keyword">new</span> JMenu(<span class="string">"设置"</span>);</span><br><span class="line">		menuBar.add(menu2);</span><br><span class="line">	    menuitem2=<span class="keyword">new</span> JMenuItem(<span class="string">"设置行数"</span>);</span><br><span class="line">		menu2.add(menuitem2);</span><br><span class="line">		menuitem2.addActionListener(<span class="keyword">this</span>);<span class="comment">//添加监听事件</span></span><br><span class="line">		menuitem3=<span class="keyword">new</span> JMenuItem(<span class="string">"设置列数"</span>);</span><br><span class="line">		menu2.add(menuitem3);</span><br><span class="line">		menuitem3.addActionListener(<span class="keyword">this</span>);<span class="comment">//添加监听事件</span></span><br><span class="line">		container.add(g);</span><br><span class="line">		setVisible(<span class="keyword">true</span>);</span><br><span class="line">		g.setFocusable(<span class="keyword">true</span>);<span class="comment">//关键之关键，jpanel添加键盘监听事件要聚焦到画板</span></span><br><span class="line">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span></span>&#123;</span><br><span class="line">		 <span class="keyword">if</span> (e.getSource()==menuitem) &#123;</span><br><span class="line">			g.startgame();<span class="comment">//开始游戏</span></span><br><span class="line">			System.out.println(<span class="string">"1"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (e.getSource()==menuitem2)&#123;<span class="comment">//设置行数</span></span><br><span class="line">			System.out.println(<span class="string">"2"</span>);</span><br><span class="line">			alert a=<span class="keyword">new</span> alert(g);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (e.getSource()==menuitem3)&#123;<span class="comment">//设置列数</span></span><br><span class="line">			System.out.println(<span class="string">"3"</span>);</span><br><span class="line">			alert2 b=<span class="keyword">new</span> alert2(g);<span class="comment">//这边涉及到窗口的传值，就是把一个对象传进去</span></span><br><span class="line">		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">		 <span class="keyword">new</span> game();</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Secretmap（迷宫的内部活动类）"><a href="#Secretmap（迷宫的内部活动类）" class="headerlink" title="Secretmap（迷宫的内部活动类）"></a>Secretmap（迷宫的内部活动类）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Secretmap</span> <span class="keyword">extends</span> <span class="title">JPanel</span> <span class="keyword">implements</span> <span class="title">KeyListener</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> time;<span class="comment">//控制画板的绘画方式</span></span><br><span class="line">	<span class="keyword">int</span> row;<span class="comment">//行</span></span><br><span class="line">	<span class="keyword">int</span> column;<span class="comment">//列</span></span><br><span class="line">	<span class="keyword">int</span> [][]a;<span class="comment">//存储状态的节点</span></span><br><span class="line">	<span class="keyword">int</span> [][]visit;</span><br><span class="line">	<span class="keyword">int</span> []direction=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</span><br><span class="line">	<span class="keyword">int</span> Time;</span><br><span class="line">	<span class="keyword">int</span> personrow;<span class="comment">//人当前所在的行</span></span><br><span class="line">	<span class="keyword">int</span> personcolumn;<span class="comment">//人当前所在的列</span></span><br><span class="line">	ImageIcon imagecon;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Secretmap</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;   </span><br><span class="line">		time=<span class="number">0</span>;<span class="comment">//默认展示背景图片</span></span><br><span class="line">		Time=<span class="number">0</span>;<span class="comment">//默认没有找到路径</span></span><br><span class="line">		row=column=<span class="number">0</span>;<span class="comment">//初始化为0(如果不为0说明可以绘制)</span></span><br><span class="line">        imagecon=<span class="keyword">new</span> ImageIcon(<span class="string">"./picture/bg.png"</span>);<span class="comment">//记录完整图片</span></span><br><span class="line">		repaint();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetRow</span><span class="params">(<span class="keyword">int</span> row)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.row=row;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetColumn</span><span class="params">(<span class="keyword">int</span> column)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.column=column;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startgame</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;   </span><br><span class="line">		<span class="keyword">if</span> ((row!=<span class="number">0</span>)&amp;&amp;(column!=<span class="number">0</span>))<span class="comment">//当行数和列数均已经设定</span></span><br><span class="line">		&#123;   </span><br><span class="line">			<span class="keyword">this</span>.removeKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			Time=<span class="number">0</span>;</span><br><span class="line">			System.out.println(row+<span class="string">"  "</span>+column);</span><br><span class="line">			time=<span class="number">1</span>;</span><br><span class="line">			a=<span class="keyword">new</span> <span class="keyword">int</span>[row+<span class="number">1</span>][column+<span class="number">1</span>];</span><br><span class="line">			visit=<span class="keyword">new</span> <span class="keyword">int</span>[row+<span class="number">1</span>][column+<span class="number">1</span>];</span><br><span class="line">			initsecretmap();<span class="comment">//随机生成迷宫的一条线路</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;column;j++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span> (a[i][j]==<span class="number">0</span>)<span class="comment">//如果不在这条线路上</span></span><br><span class="line">					&#123;</span><br><span class="line">						<span class="keyword">int</span> m=(<span class="keyword">int</span>)(Math.random()*<span class="number">100</span>);</span><br><span class="line">						<span class="keyword">if</span> (m&lt;=<span class="number">20</span>)<span class="comment">//除了线路上的点都是空白，肯定还要有一些空白，这个就认为剩下的20%是空白</span></span><br><span class="line">						a[i][j]=<span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			<span class="keyword">this</span>.addKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			personrow=<span class="number">0</span>;</span><br><span class="line">			personcolumn=<span class="number">0</span>;</span><br><span class="line">			repaint();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initsecretmap</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		 <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)</span><br><span class="line">			 <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;column;j++)</span><br><span class="line">				 a[i][j]=<span class="number">0</span>;<span class="comment">//一开始都标记为不可通行</span></span><br><span class="line">		 <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)</span><br><span class="line">			 <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;column;j++)</span><br><span class="line">				 visit[i][j]=<span class="number">0</span>;</span><br><span class="line">		 a[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;<span class="comment">//起点标记为可通行（这里默认左上角为起点，可自行修改)</span></span><br><span class="line">		 visit[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;<span class="comment">//标记起点已经被访问过</span></span><br><span class="line">		 DFS(<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//开始深搜</span></span><br><span class="line">		 </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> []c=&#123;<span class="number">0</span>,<span class="number">0</span>,-<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> []d=&#123;<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> dx,dy,i;</span><br><span class="line">		<span class="keyword">if</span> ((x==row-<span class="number">1</span>)&amp;&amp;(y==column-<span class="number">1</span>))<span class="comment">//如果到达终点</span></span><br><span class="line">		&#123;</span><br><span class="line">			Time=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		initdirection();<span class="comment">//随机生成四个方向（其实就是全排列)</span></span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=<span class="number">3</span>;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			dx=x+c[direction[i]];</span><br><span class="line">			dy=y+d[direction[i]];</span><br><span class="line">			<span class="keyword">if</span> ((dx&gt;=<span class="number">0</span>)&amp;&amp;(dx&lt;row)&amp;&amp;(dy&gt;=<span class="number">0</span>)&amp;&amp;(dy&lt;column)&amp;&amp;(visit[dx][dy]==<span class="number">0</span>)&amp;&amp;(Time==<span class="number">0</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				a[dx][dy]=<span class="number">1</span>;<span class="comment">//认为它是通路</span></span><br><span class="line">				visit[dx][dy]=<span class="number">1</span>;</span><br><span class="line">				DFS(dx,dy);</span><br><span class="line">				<span class="keyword">if</span> (Time==<span class="number">0</span>)</span><br><span class="line">				a[dx][dy]=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initdirection</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">	    <span class="keyword">int</span> i,j,k,ok;</span><br><span class="line">	    <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=<span class="number">3</span>;i++)</span><br><span class="line">	    &#123;</span><br><span class="line">	        j=(<span class="keyword">int</span>)(Math.random()*<span class="number">4</span>);<span class="comment">//注意括号的位置!要先乘再取int</span></span><br><span class="line">	        ok=<span class="number">1</span>;</span><br><span class="line">	        <span class="keyword">for</span> (k=<span class="number">0</span>;k&lt;i;k++)</span><br><span class="line">	        <span class="keyword">if</span> (j==direction[k])</span><br><span class="line">	        ok=<span class="number">0</span>;</span><br><span class="line">	        <span class="keyword">if</span> (ok==<span class="number">1</span>)</span><br><span class="line">	        direction[i]=j;</span><br><span class="line">	        <span class="keyword">else</span></span><br><span class="line">	        i--;</span><br><span class="line">	     &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isreach</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ((personrow==row-<span class="number">1</span>)&amp;&amp;(personcolumn==column-<span class="number">1</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">char</span> c=e.getKeyChar();</span><br><span class="line">		System.out.println(c);</span><br><span class="line">		<span class="keyword">switch</span>(c)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'w'</span>:<span class="comment">//如果是向上</span></span><br><span class="line">			<span class="keyword">if</span> ((personrow&gt;<span class="number">0</span>)&amp;&amp;(a[personrow-<span class="number">1</span>][personcolumn]==<span class="number">1</span>))<span class="comment">//如果上方可以到达</span></span><br><span class="line">			personrow--;</span><br><span class="line">			<span class="keyword">if</span> (isreach())</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">new</span> alert3();</span><br><span class="line">			Time=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">this</span>.removeKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'s'</span>:<span class="comment">//如果是向下</span></span><br><span class="line">			<span class="keyword">if</span> ((personrow&lt;row-<span class="number">1</span>)&amp;&amp;(a[personrow+<span class="number">1</span>][personcolumn]==<span class="number">1</span>))<span class="comment">//如果下方可以到达</span></span><br><span class="line">			personrow++;</span><br><span class="line">			<span class="keyword">if</span> (isreach())</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">new</span> alert3();</span><br><span class="line">			Time=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">this</span>.removeKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'a'</span>:<span class="comment">//如果是向左</span></span><br><span class="line">			<span class="keyword">if</span> ((personcolumn&gt;<span class="number">0</span>)&amp;&amp;(a[personrow][personcolumn-<span class="number">1</span>]==<span class="number">1</span>))<span class="comment">//如果左方可以到达</span></span><br><span class="line">			personcolumn--;</span><br><span class="line">			<span class="keyword">if</span> (isreach())</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">new</span> alert3();</span><br><span class="line">			Time=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">this</span>.removeKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'d'</span>:<span class="comment">//如果是向右</span></span><br><span class="line">			<span class="keyword">if</span> ((personcolumn&lt;column-<span class="number">1</span>)&amp;&amp;(a[personrow][personcolumn+<span class="number">1</span>]==<span class="number">1</span>))<span class="comment">//如果右方可以到达</span></span><br><span class="line">			personcolumn++;</span><br><span class="line">			<span class="keyword">if</span> (isreach())</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">new</span> alert3();</span><br><span class="line">				Time=<span class="number">0</span>;<span class="comment">//标记为没有找到</span></span><br><span class="line">				<span class="keyword">this</span>.removeKeyListener(<span class="keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		repaint();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(Graphics g)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (time==<span class="number">0</span>)<span class="comment">//如果是一开始没有开始游戏时，随便放一张背景图片</span></span><br><span class="line">		&#123;</span><br><span class="line">			 Image r=imagecon.getImage();</span><br><span class="line">			 g.drawImage(r,<span class="number">0</span>,<span class="number">0</span>,<span class="number">600</span>,<span class="number">600</span>,<span class="keyword">this</span>);<span class="comment">//画出原来的完整图案</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span> (time==<span class="number">1</span>)<span class="comment">//否则就是在游戏中重绘</span></span><br><span class="line">		&#123;</span><br><span class="line">			g.clearRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">600</span>,<span class="number">600</span>);</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;column;j++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span> ((i==personrow)&amp;&amp;(j==personcolumn))</span><br><span class="line">					&#123;</span><br><span class="line">						Color c=g.getColor();</span><br><span class="line">						g.setColor(Color.RED);<span class="comment">//人是红色</span></span><br><span class="line">						g.fillRect(<span class="number">600</span>/column*j,<span class="number">600</span>/row*i,<span class="number">600</span>/column,<span class="number">600</span>/row);</span><br><span class="line">						g.setColor(c);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">					<span class="keyword">if</span> (a[i][j]==<span class="number">1</span>)</span><br><span class="line">					&#123;</span><br><span class="line">						Color c=g.getColor();</span><br><span class="line">						g.setColor(Color.WHITE);<span class="comment">//白色是路</span></span><br><span class="line">						g.fillRect(<span class="number">600</span>/column*j,<span class="number">600</span>/row*i,<span class="number">600</span>/column,<span class="number">600</span>/row);</span><br><span class="line">						g.setColor(c);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">						<span class="keyword">if</span> (a[i][j]==<span class="number">0</span>)</span><br><span class="line">						&#123;</span><br><span class="line">							Color c=g.getColor();</span><br><span class="line">							g.setColor(Color.GRAY);<span class="comment">//灰色是墙壁</span></span><br><span class="line">							g.fillRect(<span class="number">600</span>/column*j,<span class="number">600</span>/row*i,<span class="number">600</span>/column,<span class="number">600</span>/row);</span><br><span class="line">							g.setColor(c);</span><br><span class="line">						&#125;</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyReleased</span><span class="params">(KeyEvent arg0)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyTyped</span><span class="params">(KeyEvent arg0)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="弹窗："><a href="#弹窗：" class="headerlink" title="弹窗："></a>弹窗：</h1><h2 id="alert类"><a href="#alert类" class="headerlink" title="alert类"></a>alert类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">alert</span> <span class="keyword">extends</span> <span class="title">JDialog</span> </span>&#123;</span><br><span class="line">	 <span class="keyword">int</span> row;</span><br><span class="line">	 <span class="function"><span class="keyword">public</span> <span class="title">alert</span><span class="params">(Secretmap g)</span></span>&#123;</span><br><span class="line">		setTitle(<span class="string">"注意!"</span>);</span><br><span class="line">		setLayout(<span class="keyword">null</span>);</span><br><span class="line">		setBounds(<span class="number">300</span>,<span class="number">300</span>,<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line">		Container container=getContentPane();</span><br><span class="line">		container.setBackground(Color.white);</span><br><span class="line">		JLabel jl= <span class="keyword">new</span> JLabel(<span class="string">"请输入新的行数"</span>);</span><br><span class="line">		jl.setBounds(<span class="number">50</span>,<span class="number">50</span>,<span class="number">300</span>,<span class="number">100</span>);</span><br><span class="line">	    JTextField jt=<span class="keyword">new</span> JTextField(<span class="string">""</span>);</span><br><span class="line">	    jt.setBounds(<span class="number">50</span>,<span class="number">150</span>,<span class="number">300</span>,<span class="number">50</span>);</span><br><span class="line">	    JButton jb=<span class="keyword">new</span> JButton(<span class="string">"确定"</span>);</span><br><span class="line">	    jb.setBounds(<span class="number">100</span>,<span class="number">250</span>,<span class="number">150</span>,<span class="number">75</span>);</span><br><span class="line">        jb.addActionListener(<span class="keyword">new</span> ActionListener() &#123;<span class="comment">//设立确定按钮的点击事件</span></span><br><span class="line">			</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent arg0)</span> </span>&#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated method stu9b</span></span><br><span class="line">			  String s=jt.getText();</span><br><span class="line">			  <span class="keyword">if</span> (s.matches(<span class="string">"\\d+"</span>))<span class="comment">//如果是数字</span></span><br><span class="line">			  row=Integer.valueOf(s);</span><br><span class="line">			  System.out.println(row);</span><br><span class="line">			  g.SetRow(row);</span><br><span class="line">			  setVisible(<span class="keyword">false</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	    container.add(jl);</span><br><span class="line">	    container.add(jt);</span><br><span class="line">	    container.add(jb);</span><br><span class="line">	    setVisible(<span class="keyword">true</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="alert2类"><a href="#alert2类" class="headerlink" title="alert2类"></a>alert2类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">alert2</span> <span class="keyword">extends</span> <span class="title">JDialog</span> </span>&#123;</span><br><span class="line">	 <span class="keyword">int</span> column;</span><br><span class="line">	 <span class="function"><span class="keyword">public</span> <span class="title">alert2</span><span class="params">(Secretmap g)</span></span>&#123;</span><br><span class="line">		setTitle(<span class="string">"注意!"</span>);</span><br><span class="line">		setLayout(<span class="keyword">null</span>);</span><br><span class="line">		setBounds(<span class="number">300</span>,<span class="number">300</span>,<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line">		Container container=getContentPane();</span><br><span class="line">		container.setBackground(Color.white);</span><br><span class="line">		JLabel jl= <span class="keyword">new</span> JLabel(<span class="string">"请输入新的列数"</span>);</span><br><span class="line">	    jl.setBounds(<span class="number">50</span>,<span class="number">50</span>,<span class="number">300</span>,<span class="number">100</span>);</span><br><span class="line">	    JTextField jt=<span class="keyword">new</span> JTextField(<span class="string">""</span>);</span><br><span class="line">	    jt.setBounds(<span class="number">50</span>,<span class="number">150</span>,<span class="number">300</span>,<span class="number">50</span>);</span><br><span class="line">	    JButton jb=<span class="keyword">new</span> JButton(<span class="string">"确定"</span>);</span><br><span class="line">	    jb.setBounds(<span class="number">100</span>,<span class="number">250</span>,<span class="number">150</span>,<span class="number">75</span>);</span><br><span class="line">       jb.addActionListener(<span class="keyword">new</span> ActionListener() &#123;<span class="comment">//设立确定按钮的点击事件</span></span><br><span class="line">			</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent arg0)</span> </span>&#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated method stu9b</span></span><br><span class="line">			  String s=jt.getText();</span><br><span class="line">			  <span class="keyword">if</span> (s.matches(<span class="string">"\\d+"</span>))<span class="comment">//如果是数字</span></span><br><span class="line">			  column=Integer.valueOf(s);</span><br><span class="line">			  System.out.println(column);</span><br><span class="line">			  g.SetColumn(column);</span><br><span class="line">			  setVisible(<span class="keyword">false</span>);</span><br><span class="line">			 &#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	    container.add(jl);</span><br><span class="line">	    container.add(jt);</span><br><span class="line">	    container.add(jb);</span><br><span class="line">	    setVisible(<span class="keyword">true</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="alert3类"><a href="#alert3类" class="headerlink" title="alert3类"></a>alert3类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">alert3</span> <span class="keyword">extends</span> <span class="title">JDialog</span> </span>&#123;</span><br><span class="line">			ImageIcon li;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="title">alert3</span><span class="params">()</span></span>&#123;</span><br><span class="line">				win g=<span class="keyword">new</span> win();</span><br><span class="line">				g.setBounds(<span class="number">0</span>,<span class="number">0</span>,<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line">				setTitle(<span class="string">"you win!"</span>);</span><br><span class="line">				setLayout(<span class="keyword">null</span>);</span><br><span class="line">				setBounds(<span class="number">400</span>,<span class="number">300</span>,<span class="number">450</span>,<span class="number">400</span>);</span><br><span class="line">				Container container=getContentPane();</span><br><span class="line">				container.add(g);</span><br><span class="line">				container.setBackground(Color.white);</span><br><span class="line">			    setVisible(<span class="keyword">true</span>);</span><br><span class="line">			    &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="win类"><a href="#win类" class="headerlink" title="win类"></a>win类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">win</span> <span class="keyword">extends</span> <span class="title">JPanel</span></span>&#123;</span><br><span class="line">	  	 ImageIcon li;</span><br><span class="line">	  	 <span class="function"><span class="keyword">public</span> <span class="title">win</span><span class="params">()</span></span>&#123;</span><br><span class="line">	  		 li=<span class="keyword">new</span> ImageIcon(<span class="string">"./picture/you win.png"</span>);</span><br><span class="line">	  		 repaint();</span><br><span class="line">	  	 &#125;</span><br><span class="line">	  	 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(Graphics g)</span></span></span><br><span class="line"><span class="function">	  	 </span>&#123;</span><br><span class="line">	  		 Image r=li.getImage();</span><br><span class="line">	  	     g.drawImage(r,<span class="number">0</span>,<span class="number">0</span>,<span class="number">400</span>,<span class="number">400</span>,<span class="keyword">this</span>);</span><br><span class="line">	  	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="C:%5CUsers%5C%E4%BD%95%E7%8F%8A%5CDesktop%5C20160703202350426.png" alt></p>
+<h6 id="原文链接：https-blog-csdn-net-fengsigaoju-article-details-51816360"><a href="#原文链接：https-blog-csdn-net-fengsigaoju-article-details-51816360" class="headerlink" title="原文链接：https://blog.csdn.net/fengsigaoju/article/details/51816360"></a>原文链接：<a href="https://blog.csdn.net/fengsigaoju/article/details/51816360" target="_blank" rel="noopener">https://blog.csdn.net/fengsigaoju/article/details/51816360</a></h6></section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2019/11/24/java贪吃蛇代码/">
+        <span class="nav-arrow">← </span>
+        
+          java贪吃蛇代码
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2019/11/24/java拼图游戏代码/">
+        
+          java拼图游戏代码
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#game类（游戏界面）"><span class="toc-nav-text">game类（游戏界面）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Secretmap（迷宫的内部活动类）"><span class="toc-nav-text">Secretmap（迷宫的内部活动类）</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#弹窗："><span class="toc-nav-text">弹窗：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#alert类"><span class="toc-nav-text">alert类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#alert2类"><span class="toc-nav-text">alert2类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#alert3类"><span class="toc-nav-text">alert3类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#win类"><span class="toc-nav-text">win类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#效果图"><span class="toc-nav-text">效果图</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#原文链接：https-blog-csdn-net-fengsigaoju-article-details-51816360"><span class="toc-nav-text">原文链接：https://blog.csdn.net/fengsigaoju/article/details/51816360</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/2019/11/24/java迷宫/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "java迷宫",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
